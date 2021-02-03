@@ -3,6 +3,7 @@ const express = require('express')
 const handlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
+require('./data/db')
 const routes = require('./routes/main')
 const postRoutes = require('./routes/posts')
 

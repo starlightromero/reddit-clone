@@ -1,8 +1,15 @@
+const Post = require('../models/post')
+
 exports.getNewPostForm = (req, res) => {
   return res.render('posts/posts-new')
 }
 
 exports.createNewPost = (req, res) => {
-  console.log(req.body)
-  return res.render('posts/posts-new')
+  const post = new Post(req.body)
+  post.save((err, post) => {
+    if (err) {
+      console.log(err)
+    }
+    return res.redirect('/')
+  })
 }
