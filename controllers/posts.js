@@ -13,3 +13,11 @@ exports.createNewPost = (req, res) => {
     return res.redirect('/')
   })
 }
+
+exports.getPosts = (req, res) => {
+  Post.find({}).lean().then(posts => {
+    res.render('posts/posts-index', { posts })
+  }).catch(err => {
+    console.log(err.message)
+  })
+}
