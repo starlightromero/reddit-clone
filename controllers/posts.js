@@ -16,26 +16,20 @@ exports.createNewPost = (req, res) => {
 
 exports.getPosts = (req, res) => {
   Post.find({}).lean().then(posts => {
-    res.render('posts/posts-index', { posts })
+    res.render('posts/posts-index', {
+      posts
+    })
   }).catch(err => {
     console.log(err.message)
   })
 }
 
 exports.getPost = (req, res) => {
-  Post.findById(req.params.id).lean().then(post => {
-    res.render('posts/post-detail', { post })
-  }).catch(err => {
+  Post.findById(req.params.id).lean().populate('comments').then((post) => {
+    res.render('posts/post-detail', {
+      post
+    })
+  }).catch((err) => {
     console.log(err.message)
-  })
-}
-
-exports.getSubreddit = (req, res) => {
-  Post.find(
-    { subreddit: req.params.subreddit }
-  ).lean().then(posts => {
-    res.render('posts-index', { posts })
-  }).catch(err => {
-    console.log(err)
   })
 }
