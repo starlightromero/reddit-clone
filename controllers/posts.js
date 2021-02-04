@@ -21,3 +21,11 @@ exports.getPosts = (req, res) => {
     console.log(err.message)
   })
 }
+
+exports.getPost = (req, res) => {
+  Post.findById(req.params.id).lean().then(post => {
+    res.render('posts/post-detail', { post })
+  }).catch(err => {
+    console.log(err.message)
+  })
+}
