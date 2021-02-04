@@ -5,7 +5,6 @@ const postController = require('../controllers/posts')
 
 router.get('/new', postController.getNewPostForm)
 router.post('/new', postController.createNewPost)
-router.get('/r/:subreddit', postController.getSubreddit)
 router.get('/:id', postController.getPost)
 router.get('/', postController.getPosts)
 
