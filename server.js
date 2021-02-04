@@ -6,6 +6,7 @@ const expressValidator = require('express-validator')
 require('./data/db')
 const routes = require('./routes/main')
 const postRoutes = require('./routes/posts')
+const commentRoutes = require('./routes/comments')
 
 const port = 3000
 const app = express()
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(expressValidator())
 
 app.use('/posts', postRoutes)
+app.use(commentRoutes)
 app.use(routes)
 
 app.listen(port, () => {
