@@ -1,12 +1,16 @@
+require('dotenv').config()
+const cookieParser = require('cookie-parser')
+const jwt = require('jsonwebtoken')
 const path = require('path')
 const express = require('express')
 const handlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
-require('./data/db')
 const routes = require('./routes/main')
 const postRoutes = require('./routes/posts')
 const commentRoutes = require('./routes/comments')
+const userRoutes = require('./routes/user')
+require('./data/db')
 
 const port = 3000
 const app = express()
@@ -22,9 +26,11 @@ app.engine('hbs', handlebars({
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(expressValidator())
+app.use(cookieParser())
 
 app.use('/posts', postRoutes)
 app.use(commentRoutes)
+app.use(userRoutes)
 app.use(routes)
 
 app.listen(port, () => {
