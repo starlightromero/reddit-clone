@@ -28,6 +28,19 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(expressValidator())
 app.use(cookieParser())
 
+const checkAuth = (req, res, next) => {
+  if (typeof req.cookies.nToken === 'undefined' || req.cookies.nToken === null) {
+    req.user = null
+  } else {
+    const token = req.cookies.nToken
+    const decodedToken = jwt.decode(token, { complete: true }) || {}
+    req.user = decodedToken.payload
+  }
+  next()
+}
+
+app.use(checkAuth)
+
 app.use('/posts', postRoutes)
 app.use(commentRoutes)
 app.use(userRoutes)
