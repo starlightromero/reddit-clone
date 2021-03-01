@@ -7,4 +7,6 @@ router.get('/sign-up', adminController.getSignUp)
 
 router.post('/sign-up', adminController.postSignUp)
 
-router.get('/lgout', adminController.getLogout)
+router.get('/logout', adminController.getLogout)
+
+router.get('/login', adminController.getLogin)
