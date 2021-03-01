@@ -16,3 +16,8 @@ exports.postSignUp = (req, res) => {
     return res.status(400).send({ err: err })
   })
 }
+
+exports.getLogout = (req, res) => {
+  res.clearCookie('nToken')
+  res.redirect('/')
+}
