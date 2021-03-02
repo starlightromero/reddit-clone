@@ -10,7 +10,7 @@ const expressValidator = require('express-validator')
 const routes = require('./routes/main')
 const postRoutes = require('./routes/posts')
 const commentRoutes = require('./routes/comments')
-const userRoutes = require('./routes/user')
+const authRoutes = require('./routes/auth')
 const repliesRoutes = require('./routes/replies')
 
 require('./data/db')
@@ -45,9 +45,10 @@ const checkAuth = (req, res, next) => {
 
 app.use(checkAuth)
 
+app.use('/posts/:postId/comments/:commentId/replies', repliesRoutes)
+app.use('/posts/:postId/comments', commentRoutes)
 app.use('/posts', postRoutes)
-app.use(commentRoutes)
-app.use(userRoutes)
+app.use(authRoutes)
 app.use(routes)
 
 app.listen(port, () => {

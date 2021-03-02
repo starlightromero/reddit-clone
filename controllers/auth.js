@@ -23,6 +23,10 @@ exports.getLogout = (req, res) => {
 }
 
 exports.getLogin = (req, res) => {
+  res.render('login')
+}
+
+exports.postLogin = (req, res) => {
   const username = req.body.username
   const password = req.body.password
   User.findOne(
@@ -33,6 +37,7 @@ exports.getLogin = (req, res) => {
       return res.status(401).send({ message: 'Wrong Username or Password' })
     }
     user.comparePassword(password, (err, isMatch) => {
+      if (err) { console.log(err) }
       if (!isMatch) {
         return res.status(401).send({ message: 'Wrong Username or password' })
       }

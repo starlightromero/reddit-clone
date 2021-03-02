@@ -32,7 +32,7 @@ exports.getPosts = (req, res) => {
   Post.find({}).lean().populate(
     'author'
   ).then(posts => {
-    res.render('posts-index', { posts, currentUser })
+    res.render('posts/posts-index', { posts, currentUser })
   }).catch(err => {
     console.log(err.message)
   })
@@ -45,7 +45,7 @@ exports.getPost = (req, res) => {
   ).populate(
     'comments'
   ).lean().then(post => {
-    res.render('posts-show', { post, currentUser })
+    res.render('posts/posts-show', { post, currentUser })
   }).catch(err => {
     console.log(err.message)
   })
@@ -57,8 +57,10 @@ exports.putUpVote = (req, res) => {
     post.voteScore = post.voteScore + 1
     post.save()
     res.status(200)
+  }).catch(err => {
+    console.log(err.message)
   })
-})
+}
 
 exports.putDownVote = (req, res) => {
   Post.findById(req.params.id).exec(function (err, post) {
@@ -66,5 +68,7 @@ exports.putDownVote = (req, res) => {
     post.voteScore = post.voteScore - 1
     post.save()
     res.status(200)
+  }).catch(err => {
+    console.log(err.message)
   })
-})
+}

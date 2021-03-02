@@ -1,7 +1,6 @@
 const chai = require('chai')
 const chaiHttp = require('chai-http')
 const server = require('../server')
-const agent = chai.request.agent(server)
 
 const User = require('../models/user')
 
@@ -9,6 +8,7 @@ const should = chai.should()
 chai.use(chaiHttp)
 
 describe('User', function () {
+  const agent = chai.request.agent(server)
   it('should not be able to login if they have not registered', function (done) {
     agent.post(
       '/login',
@@ -35,7 +35,7 @@ describe('User', function () {
         }
       ).end(
         function (err, res) {
-          console.log(res.body)
+          if (err) { done(err) }
           res.should.have.status(200)
           agent.should.have.cookie('nToken')
           done()
@@ -53,6 +53,7 @@ describe('User', function () {
         password: 'password'
       }
     ).end(function (err, res) {
+      if (err) { done(err) }
       res.should.have.status(200)
       agent.should.have.cookie('nToken')
       done()
@@ -63,6 +64,7 @@ describe('User', function () {
     agent.get(
       '/logout'
     ).end(function (err, res) {
+      if (err) { done(err) }
       res.should.have.status(200)
       agent.should.not.have.cookie('nToken')
       done()
