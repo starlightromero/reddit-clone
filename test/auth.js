@@ -18,6 +18,7 @@ describe('User', function () {
       }
     ).end(
       function (err, res) {
+        if (err) { done(err) }
         res.status.should.be.equal(401)
         done()
       }
@@ -28,6 +29,8 @@ describe('User', function () {
     User.findOneAndRemove({ username: 'testone' }, function () {
       agent.post(
         '/sign-up'
+      ).set(
+        'content-type', 'application/x-www-form-urlencoded'
       ).send(
         {
           username: 'testone',
@@ -47,6 +50,8 @@ describe('User', function () {
   it('should be able to login', function (done) {
     agent.post(
       '/login'
+    ).set(
+      'content-type', 'application/x-www-form-urlencoded'
     ).send(
       {
         username: 'testone',

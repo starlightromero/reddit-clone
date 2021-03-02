@@ -24,12 +24,29 @@
         <li class="nav-item active">
           <a class="nav-link" href="/">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/posts">Posts</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/posts/new">New Post</a>
-        </li>
+        {{#if currentUser}}
+          <li class="nav-item">
+            <a class="nav-link" href="/posts">Posts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/posts/new">New Post</a>
+          </li>
+        {{/if}}
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        {{#if currentUser}}
+          <li class="mr-2 nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        {{else}}
+          <li class="mr-2 nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li class="mr-2 nav-item">
+            <a class="nav-link" href="/sign-up">Sign Up</a>
+          </li>
+        {{/if}}
       </ul>
     </div>
   </nav>

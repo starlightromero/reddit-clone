@@ -1,19 +1,12 @@
 const Post = require('../models/post')
 
-exports.index = (req, res) => {
-  return res.render('index')
-}
-
-exports.getSubreddit = (req, res) => {
+exports.index = (req, res, next) => {
   const currentUser = req.user
-  Post.find(
-    { subreddit: req.params.subreddit }
-  ).lean().then(posts => {
-    res.render(
-      'posts-index',
-      { posts, currentUser }
-    )
+  Post.find().lean().populate(
+    'author'
+  ).then(posts => {
+    res.render('posts/posts-index', { posts, currentUser })
   }).catch(err => {
-    console.log(err)
+    console.log(err.message)
   })
 }

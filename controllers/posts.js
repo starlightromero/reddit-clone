@@ -2,7 +2,8 @@ const Post = require('../models/post')
 const User = require('../models/user')
 
 exports.getNewPostForm = (req, res) => {
-  return res.render('posts/posts-new')
+  const currentUser = req.user
+  return res.render('posts/posts-new', { currentUser })
 }
 
 exports.createNewPost = (req, res) => {
@@ -28,7 +29,6 @@ exports.createNewPost = (req, res) => {
 
 exports.getPosts = (req, res) => {
   const currentUser = req.user
-  console.log(req.cookies)
   Post.find({}).lean().populate(
     'author'
   ).then(posts => {

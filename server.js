@@ -1,17 +1,18 @@
 require('dotenv').config()
 const cookieParser = require('cookie-parser')
-const jwt = require('jsonwebtoken')
 const path = require('path')
 const express = require('express')
 const handlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
+const checkAuth = require('./middleware/checkAuth')
 
 const routes = require('./routes/main')
 const postRoutes = require('./routes/posts')
 const commentRoutes = require('./routes/comments')
 const authRoutes = require('./routes/auth')
 const repliesRoutes = require('./routes/replies')
+const subredditRoutes = require('./routes/subreddit')
 
 require('./data/db')
 
@@ -31,28 +32,15 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(expressValidator())
 app.use(cookieParser())
-
-const checkAuth = (req, res, next) => {
-  if (typeof req.cookies.nToken === 'undefined' || req.cookies.nToken === null) {
-    req.user = null
-  } else {
-    const token = req.cookies.nToken
-    const decodedToken = jwt.decode(token, { complete: true }) || {}
-    req.user = decodedToken.payload
-  }
-  next()
-}
-
 app.use(checkAuth)
 
 app.use('/posts/:postId/comments/:commentId/replies', repliesRoutes)
 app.use('/posts/:postId/comments', commentRoutes)
 app.use('/posts', postRoutes)
+app.use('/r/:subreddit', subredditRoutes)
 app.use(authRoutes)
 app.use(routes)
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`)
-})
+app.listen(port)
 
 module.exports = app

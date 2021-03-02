@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 
 exports.getSignUp = (req, res) => {
-  res.render('sign-up')
+  res.render('auth/sign-up')
 }
 
 exports.postSignUp = (req, res) => {
@@ -23,7 +23,7 @@ exports.getLogout = (req, res) => {
 }
 
 exports.getLogin = (req, res) => {
-  res.render('login')
+  res.render('auth/login')
 }
 
 exports.postLogin = (req, res) => {
