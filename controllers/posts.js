@@ -52,23 +52,21 @@ exports.getPost = (req, res) => {
 }
 
 exports.putUpVote = (req, res) => {
-  Post.findById(req.params.id).exec(function (err, post) {
+  Post.findById(req.params.id).exec((err, post) => {
+    if (err) { console.log(err) }
     post.upVotes.push(req.user._id)
     post.voteScore = post.voteScore + 1
     post.save()
     res.status(200)
-  }).catch(err => {
-    console.log(err.message)
   })
 }
 
 exports.putDownVote = (req, res) => {
-  Post.findById(req.params.id).exec(function (err, post) {
+  Post.findById(req.params.id).exec((err, post) => {
+    if (err) { console.log(err) }
     post.downVotes.push(req.user._id)
     post.voteScore = post.voteScore - 1
     post.save()
     res.status(200)
-  }).catch(err => {
-    console.log(err.message)
   })
 }

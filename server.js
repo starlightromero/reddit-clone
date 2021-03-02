@@ -37,7 +37,7 @@ app.use(checkAuth)
 app.use('/posts/:postId/comments/:commentId/replies', repliesRoutes)
 app.use('/posts/:postId/comments', commentRoutes)
 app.use('/posts', postRoutes)
-app.use('/r/:subreddit', subredditRoutes)
+app.use('/n/:subreddit', subredditRoutes)
 app.use(authRoutes)
 app.use(routes)
 

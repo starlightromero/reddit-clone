@@ -4,9 +4,9 @@ const router = express.Router()
 const postController = require('../controllers/posts')
 const isAuth = require('../middleware/isAuth')
 
-router.put('/posts/:id/vote-up', isAuth, postController.putUpVote)
+router.put('/:id/vote-up', isAuth, postController.putUpVote)
 
-router.put('/posts/:id/vote-down', isAuth, postController.putDownVote)
+router.put('/:id/vote-down', isAuth, postController.putDownVote)
 
 router.get('/new', isAuth, postController.getNewPostForm)
 
