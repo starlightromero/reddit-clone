@@ -24,16 +24,17 @@ describe('Posts', function () {
   }
 
   before(function (done) {
-    agent
-      .post('/sign-up')
-      .set('content-type', 'application/x-www-form-urlencoded')
-      .send(user)
-      .then(function (res) {
-        done()
-      })
-      .catch(function (err) {
-        done(err)
-      })
+    agent.post(
+      '/sign-up'
+    ).set(
+      'content-type', 'application/x-www-form-urlencoded'
+    ).send(
+      user
+    ).then(function (res) {
+      done()
+    }).catch(function (err) {
+      done(err)
+    })
   })
 
   it('Should create with valid attributes at POST /posts/new', function (done) {
