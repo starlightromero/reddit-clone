@@ -38,14 +38,9 @@ exports.getPost = (req, res) => {
   const currentUser = req.user
   Post.findById(
     req.params.id
-  ).lean().populate(
-    {
-      path: 'comments',
-      populate: { path: 'author' }
-    }
   ).populate(
-    'author'
-  ).then(post => {
+    'comments'
+  ).lean().then(post => {
     res.render('posts-show', { post, currentUser })
   }).catch(err => {
     console.log(err.message)

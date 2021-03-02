@@ -5,13 +5,14 @@ exports.index = (req, res) => {
 }
 
 exports.getSubreddit = (req, res) => {
-  var currentUser = req.user
+  const currentUser = req.user
   Post.find(
     { subreddit: req.params.subreddit }
-  ).lean().populate(
-    'author'
-  ).then(posts => {
-    res.render('posts-index', { posts, currentUser })
+  ).lean().then(posts => {
+    res.render(
+      'posts-index',
+      { posts, currentUser }
+    )
   }).catch(err => {
     console.log(err)
   })
