@@ -8,6 +8,10 @@ exports.getNewPostForm = (req, res) => {
 exports.createNewPost = (req, res) => {
   if (req.user) {
     const post = new Post(req.body)
+    post.author = req.user._id
+    post.upVotes = []
+    post.downVotes = []
+    post.voteScore = 0
     post.save().then(post => {
       return User.findById(req.user._id)
     }).then(user => {
@@ -46,3 +50,21 @@ exports.getPost = (req, res) => {
     console.log(err.message)
   })
 }
+
+exports.putUpVote = (req, res) => {
+  Post.findById(req.params.id).exec(function (err, post) {
+    post.upVotes.push(req.user._id)
+    post.voteScore = post.voteScore + 1
+    post.save()
+    res.status(200)
+  })
+})
+
+exports.putDownVote = (req, res) => {
+  Post.findById(req.params.id).exec(function (err, post) {
+    post.downVotes.push(req.user._id)
+    post.voteScore = post.voteScore - 1
+    post.save()
+    res.status(200)
+  })
+})

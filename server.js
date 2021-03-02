@@ -26,6 +26,7 @@ app.engine('hbs', handlebars({
   defaultLayout: 'base'
 }))
 
+app.use(express.static('public'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(expressValidator())
