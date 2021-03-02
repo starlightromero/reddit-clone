@@ -1,12 +1,12 @@
 const chai = require('chai')
 const chaiHttp = require('chai-http')
 const server = require('../server')
-const should = chai.should()
-chai.use(chaiHttp)
-
 const agent = chai.request.agent(server)
 
 const User = require('../models/user')
+
+const should = chai.should()
+chai.use(chaiHttp)
 
 describe('User', function () {
   it('should not be able to login if they have not registered', function (done) {
