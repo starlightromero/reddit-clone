@@ -39,7 +39,10 @@ exports.getPost = (req, res) => {
   Post.findById(
     req.params.id
   ).lean().populate(
-    'comments'
+    {
+      path: 'comments',
+      populate: { path: 'author' }
+    }
   ).populate(
     'author'
   ).then(post => {

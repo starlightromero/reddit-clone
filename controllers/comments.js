@@ -3,6 +3,7 @@ const Comment = require('../models/comment')
 
 exports.createNewComment = (req, res) => {
   const comment = new Comment(req.body)
+  comment.author = req.user._id
   comment.save().then(comment => {
     return Post.findById(req.params.postId)
   }).then(post => {
